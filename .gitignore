@@ -8,6 +8,8 @@ bin-release/
 .settings/
 .idea
 .idea/
+**/.idea
+**/.idea/
 # Executables
 *.swf
 *.air
@@ -16,6 +18,14 @@ bin-release/
 *.zip
 *.psd
 *.ai
+
+**/*.swf
+**/*.air
+**/*.ipa
+**/*.apk
+**/*.zip
+**/*.psd
+**/*.ai
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
