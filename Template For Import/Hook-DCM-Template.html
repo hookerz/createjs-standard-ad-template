@@ -7,14 +7,18 @@
 	4. Blank lines will be removed automatically.
 	5. Remove unnecessary comments before creating your template.
 -->
+
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="authoring-tool" content="Adobe_Animate_CC">
-<meta name="ad.size" content="width=$WT ,height=$HT">
+<meta name="authoring-tool" content="$VERSION">
+<meta name="ad.size" content="width=$WT,height=$HT">
 <title>$TITLE</title>
- <style type="text/css">
-        /** Global **/
+<!-- write your code here -->
+$CENTER_STYLE
+
+<style type="text/css">
+       
         * {
             margin: 0;
             padding: 0;
@@ -27,13 +31,6 @@
             padding: 0;
         }
 
-        #canvas {
-            cursor: pointer;
-            position: absolute;
-            display: block;
-            background-color: rgba(255, 255, 255, 1.00);
-        }
-
         :focus {
             outline: none;
         }
@@ -42,84 +39,41 @@
             border: 0;
         }
 
-        #animation_container {
-            background-color: rgba(255, 255, 255, 1.00);
-             width: $WTpx;
-            height: $HTpx;
-        }
-
-        #dom_overlay_container {
-            pointer-events: none;
-            overflow: hidden;
-            width: $WTpx;
-            height: $HTpx;
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            display: block;
-        }
     </style>
-<!-- write your code here -->
-    <script type="application/javascript">    var clickTag = "http://www.google.com";    </script>
-<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-<script src="$TITLE.js"></script>
-<script>
+<script type="application/javascript">    var clickTag = "http://www.google.com";    </script>
+$CREATEJS_LIBRARY_SCRIPTS
+$ANIMATE_CC_SCRIPTS
+$SCRIPT_START
 var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
 function init() {
-	canvas = document.getElementById("canvas");
-	anim_container = document.getElementById("animation_container");
+	canvas = document.getElementById("$CANVAS_ID");
+	anim_container = document.getElementById("$ANIM_CONTAINER_ID");
 	dom_overlay_container = document.getElementById("dom_overlay_container");
-	var comp=null;
-	
-	for (const property in AdobeAn.compositions) {
-	if (comp ===null) {
-	comp = AdobeAn.compositions[property]
-	
-			}
-		}
-	
-	var lib=comp.getLibrary();
-	var loader = new createjs.LoadQueue(false);
-	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
-	loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
-	var lib=comp.getLibrary();
-	loader.loadManifest(lib.properties.manifest);
+	$CREATE_LOADER
+	$LOAD_MANIFEST
+	$PRELOAD_ASSETS
 }
-function handleFileLoad(evt, comp) {
-	var images=comp.getImages();	
-	if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }	
-}
-function handleComplete(evt,comp) {
+$HANDLE_FILE_LOAD_START	
+	$HANDLE_FILE_LOAD_BODY	
+$HANDLE_FILE_LOAD_END
+$HANDLE_COMPLETE_START
 	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
-	var lib=comp.getLibrary();
-	var ss=comp.getSpriteSheet();
-	var queue = evt.target;
-	var ssMetadata = lib.ssMetadata;
-	for(i=0; i<ssMetadata.length; i++) {
-		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
-	}
-	exportRoot = new lib.$TITLE();
-	stage = new lib.Stage(canvas);
-	stage.enableMouseOver();	
+	$CREATE_STAGE	
 	//Registers the "tick" event listener.
-	fnStartAnimation = function() {
-		stage.addChild(exportRoot);
-		createjs.Ticker.framerate = lib.properties.fps;
-		createjs.Ticker.addEventListener("tick", stage);
-	}	    
+	$START_ANIMATION	    
 	//Code to support hidpi screens and responsive scaling.
-	AdobeAn.makeResponsive(false,'both',false,1,[canvas,anim_container,dom_overlay_container]);	
-	AdobeAn.compositionLoaded(lib.properties.id);
-	fnStartAnimation();
-}
-</script>
+	$RESP_HIDPI	
+$HANDLE_COMPLETE_END
+$PLAYSOUND
+$SCRIPT_END
 <!-- write your code here -->
 </head>
-<body onload="init();">
-<div id="animation_container">
-    <canvas id="canvas" width="$WT" height="$HT"></canvas>
-    <!-- SET AD SIZE HERE-->
-    <div id="dom_overlay_container"></div>
-</div>
+<body onload="init();" style="margin:0px;">
+	<div id="$ANIM_CONTAINER_ID" style="background-color:$BG; width:$WTpx; height:$HTpx">
+		<canvas id="$CANVAS_ID" width="$WT" height="$HT" style="cursor:pointer;  position: absolute; display: $CANVAS_DISP; background-color:$BG;"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:$WTpx; height:$HTpx; position: absolute; left: 0px; top: 0px; display: $CANVAS_DISP;">
+		</div>
+	</div>
+    $PRELOADER_DIV
 </body>
 </html>

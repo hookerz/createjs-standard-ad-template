@@ -181,7 +181,7 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/background.png?1573668525719", id:"background"}
+		{src:"images/background.png", id:"background"}
 	],
 	preloads: []
 };

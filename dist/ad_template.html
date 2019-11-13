@@ -11,10 +11,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="authoring-tool" content="Adobe_Animate_CC">
-<meta name="ad.size" content="width=300 ,height=250">
+<meta name="ad.size" content="width=300,height=250">
 <title>ad_template</title>
- <style type="text/css">
-        /** Global **/
+<!-- write your code here -->
+<style type="text/css">
         * {
             margin: 0;
             padding: 0;
@@ -25,36 +25,14 @@
             margin: 0px;
             padding: 0;
         }
-        #canvas {
-            cursor: pointer;
-            position: absolute;
-            display: block;
-            background-color: rgba(255, 255, 255, 1.00);
-        }
         :focus {
             outline: none;
         }
         ::-moz-focus-inner {
             border: 0;
         }
-        #animation_container {
-            background-color: rgba(255, 255, 255, 1.00);
-             width: 300px;
-            height: 250px;
-        }
-        #dom_overlay_container {
-            pointer-events: none;
-            overflow: hidden;
-            width: 300px;
-            height: 250px;
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            display: block;
-        }
     </style>
-<!-- write your code here -->
-    <script type="application/javascript">    var clickTag = "http://www.google.com";    </script>
+<script type="application/javascript">    var clickTag = "http://www.google.com";    </script>
 <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
 <script src="ad_template.js"></script>
 <script>
@@ -63,12 +41,7 @@ function init() {
 	canvas = document.getElementById("canvas");
 	anim_container = document.getElementById("animation_container");
 	dom_overlay_container = document.getElementById("dom_overlay_container");
-	var comp=null;
-	for (const property in AdobeAn.compositions) {
-	if (comp ===null) {
-	comp = AdobeAn.compositions[property]
-			}
-		}
+	var comp=AdobeAn.getComposition("EC05673F2EF8E74999333A4D42C1E38A");
 	var lib=comp.getLibrary();
 	var loader = new createjs.LoadQueue(false);
 	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
@@ -106,11 +79,11 @@ function handleComplete(evt,comp) {
 </script>
 <!-- write your code here -->
 </head>
-<body onload="init();">
-<div id="animation_container">
-    <canvas id="canvas" width="300" height="250"></canvas>
-    <!-- SET AD SIZE HERE-->
-    <div id="dom_overlay_container"></div>
-</div>
+<body onload="init();" style="margin:0px;">
+	<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:300px; height:250px">
+		<canvas id="canvas" width="300" height="250" style="cursor:pointer;  position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:300px; height:250px; position: absolute; left: 0px; top: 0px; display: block;">
+		</div>
+	</div>
 </body>
 </html>
