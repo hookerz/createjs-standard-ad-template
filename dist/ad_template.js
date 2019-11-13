@@ -2,9 +2,7 @@
 
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
-lib.ssMetadata = [
-		{name:"ad_template_atlas_", frames: [[0,0,300,250]]}
-];
+lib.ssMetadata = [];
 
 
 // symbols:
@@ -12,10 +10,9 @@ lib.ssMetadata = [
 
 
 (lib.background = function() {
-	this.initialize(ss["ad_template_atlas_"]);
-	this.gotoAndStop(0);
-}).prototype = p = new cjs.Sprite();
-// helper functions:
+	this.initialize(img.background);
+}).prototype = p = new cjs.Bitmap();
+p.nominalBounds = new cjs.Rectangle(0,0,300,250);// helper functions:
 
 function mc_symbol_clone() {
 	var clone = this._cloneProps(new this.constructor(this.mode, this.startPosition, this.loop));
@@ -45,6 +42,8 @@ function getMCSymbolPrototype(symbol, nominalBounds, frameBounds) {
 
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(3).to({_off:false},0).wait(1));
 
+	this._renderFirstFrame();
+
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(0,0,100,100);
 
@@ -60,6 +59,8 @@ p.nominalBounds = new cjs.Rectangle(0,0,100,100);
 
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(3).to({_off:false},0).wait(1));
 
+	this._renderFirstFrame();
+
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(0,0,300,250);
 
@@ -74,6 +75,8 @@ p.nominalBounds = new cjs.Rectangle(0,0,300,250);
 
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
+	this._renderFirstFrame();
+
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(0,0,300,250);
 
@@ -83,15 +86,16 @@ p.nominalBounds = new cjs.Rectangle(0,0,300,250);
 
 	// Layer_1
 	this.instance = new lib.background();
-	this.instance.parent = this;
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+
+	this._renderFirstFrame();
 
 }).prototype = getMCSymbolPrototype(lib.backgroundImage, new cjs.Rectangle(0,0,300,250), null);
 
 
 // stage content:
-(lib.adtemplate = function(mode,startPosition,loop) {
+(lib.ad_template = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{start:0,end:29});
 
 	// timeline functions:
@@ -140,8 +144,6 @@ p.nominalBounds = new cjs.Rectangle(0,0,300,250);
 
 	// CTA_BTN_NEVER_REMOVE
 	this.cta_btn = new lib.CTABTNHIT();
-	this.cta_btn.name = "cta_btn";
-	this.cta_btn.parent = this;
 	this.cta_btn.setTransform(157,195,1,1,0,0,0,50,50);
 	new cjs.ButtonHelper(this.cta_btn, 0, 1, 2, false, new lib.CTABTNHIT(), 3);
 
@@ -149,8 +151,6 @@ p.nominalBounds = new cjs.Rectangle(0,0,300,250);
 
 	// CATCH_ALL_BTN_NEVER_REMOVE
 	this.catch_all_btn = new lib.CATCH_ALL_BTN();
-	this.catch_all_btn.name = "catch_all_btn";
-	this.catch_all_btn.parent = this;
 	this.catch_all_btn.setTransform(150,125,1,1,0,0,0,150,125);
 	new cjs.ButtonHelper(this.catch_all_btn, 0, 1, 2, false, new lib.CATCH_ALL_BTN(), 3);
 
@@ -158,17 +158,17 @@ p.nominalBounds = new cjs.Rectangle(0,0,300,250);
 
 	// Border
 	this.instance = new lib.Border("synched",0);
-	this.instance.parent = this;
 	this.instance.setTransform(150,125,1,1,0,0,0,150,125);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(30));
 
 	// bg_image
 	this.instance_1 = new lib.backgroundImage();
-	this.instance_1.parent = this;
 	this.instance_1.setTransform(151,125,1,1,0,0,0,150,125);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(30));
+
+	this._renderFirstFrame();
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(150,125,151,125);
@@ -181,7 +181,7 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/ad_template_atlas_.png?1565377076684", id:"ad_template_atlas_"}
+		{src:"images/background.png?1573668525719", id:"background"}
 	],
 	preloads: []
 };
@@ -192,7 +192,7 @@ lib.properties = {
 
 (lib.Stage = function(canvas) {
 	createjs.Stage.call(this, canvas);
-}).prototype = p = new createjs.Stage();
+}).prototype = p = new createjs.StageGL();
 
 p.setAutoPlay = function(autoPlay) {
 	this.tickEnabled = autoPlay;
@@ -220,7 +220,7 @@ an.bootstrapCallback=function(fnCallback) {
 
 an.compositions = an.compositions || {};
 an.compositions['EC05673F2EF8E74999333A4D42C1E38A'] = {
-	getStage: function() { return exportRoot.getStage(); },
+	getStage: function() { return exportRoot.stage; },
 	getLibrary: function() { return lib; },
 	getSpriteSheet: function() { return ss; },
 	getImages: function() { return img; }
