@@ -144,6 +144,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,300,250);
 
 	// CTA_BTN_NEVER_REMOVE
 	this.cta_btn = new lib.CTABTNHIT();
+	this.cta_btn.name = "cta_btn";
 	this.cta_btn.setTransform(157,195,1,1,0,0,0,50,50);
 	new cjs.ButtonHelper(this.cta_btn, 0, 1, 2, false, new lib.CTABTNHIT(), 3);
 
@@ -151,6 +152,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,300,250);
 
 	// CATCH_ALL_BTN_NEVER_REMOVE
 	this.catch_all_btn = new lib.CATCH_ALL_BTN();
+	this.catch_all_btn.name = "catch_all_btn";
 	this.catch_all_btn.setTransform(150,125,1,1,0,0,0,150,125);
 	new cjs.ButtonHelper(this.catch_all_btn, 0, 1, 2, false, new lib.CATCH_ALL_BTN(), 3);
 
